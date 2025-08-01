@@ -1,8 +1,10 @@
 // server.js
 
-import express from 'express';
-import { createCanvas, loadImage } from 'canvas';
-import fetch from 'node-fetch';
+const express = require('express');
+const { createCanvas, loadImage } = require('canvas');
+const fetch = require('node-fetch');  // node-fetch v2 supports require()
+
+const FormData = require('form-data');
 
 const app = express();
 app.use(express.json());
@@ -57,7 +59,7 @@ app.post('/api/generate', async (req, res) => {
     // Export image buffer
     const buffer = canvas.toBuffer('image/png');
 
-    // Send image + embed to Discord webhook
+    // Prepare form data for Discord webhook
     const formData = new FormData();
     formData.append('file', buffer, 'donation.png');
 
@@ -75,10 +77,15 @@ app.post('/api/generate', async (req, res) => {
 
     formData.append('payload_json', JSON.stringify(payload));
 
-    await fetch(DISCORD_WEBHOOK_URL, {
+    // Send to Discord webhook
+    const response = await fetch(DISCORD_WEBHOOK_URL, {
       method: 'POST',
       body: formData
     });
+
+    if (!response.ok) {
+      throw new Error(`Discord webhook error: ${response.statusText}`);
+    }
 
     res.status(200).json({ success: true, message: 'Donation image sent!' });
 
