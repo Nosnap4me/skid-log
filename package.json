@@ -1,15 +1,14 @@
 {
   "name": "roblox-donation-api",
   "version": "1.0.0",
-  "description": "Backend API server for Roblox donation image generation",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
- "dependencies": {
-  "express": "^4.18.2",
-  "canvas": "^2.11.0",
-  "node-fetch": "^2.6.7",
-  "form-data": "^4.0.0"
+  "dependencies": {
+    "express": "^4.18.2",
+    "canvas": "^2.11.0",
+    "node-fetch": "^2.6.7",
+    "form-data": "^4.0.0"
   }
 }
