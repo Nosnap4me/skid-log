@@ -1,8 +1,8 @@
 // server.js
 
-const express = require('express');
-const { createCanvas, loadImage } = require('canvas');
-const fetch = require('node-fetch');
+import express from 'express';
+import { createCanvas, loadImage } from 'canvas';
+import fetch from 'node-fetch';
 
 const app = express();
 app.use(express.json());
